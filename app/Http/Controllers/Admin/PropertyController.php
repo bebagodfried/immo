@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyFormRequest;
 use App\Models\Property;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -27,13 +28,13 @@ class PropertyController extends Controller
     {
         $property = new Property();
         $property->fill([
-            'surface' => 10,
-            'rooms' => 1,
-            'bedrooms' => 0,
-            'floor' => 0,
-            'city' => 'Lomé',
-            'postal_code' => 01,
-            'sold' => false,
+            'surface'       => 10,
+            'rooms'         => 1,
+            'bedrooms'      => 0,
+            'floor'         => 0,
+            'city'          => 'Lomé',
+            'postal_code'   => 01,
+            'sold'          => false,
         ]);
 
         return view('admin.properties.form', [
@@ -44,7 +45,7 @@ class PropertyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PropertyFormRequest $request)
+    public function store(PropertyFormRequest $request): RedirectResponse
     {
         $property = Property::create($request->validated());
         return to_route('admin.property.index')->with('success', 'Le bien a bien été enregistré');
@@ -53,7 +54,7 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Property $property)
+    public function edit(Property $property): View
     {
         return view('admin.properties.form', [
             'property' => $property
@@ -63,7 +64,7 @@ class PropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PropertyFormRequest $request, Property $property)
+    public function update(PropertyFormRequest $request, Property $property): RedirectResponse
     {
         $property->update($request->validated());
         return to_route('admin.property.index')->with('success', 'Le bien a bien été modifié');
@@ -72,7 +73,7 @@ class PropertyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Property $property)
+    public function destroy(Property $property): RedirectResponse
     {
         $property->delete();
         return to_route('admin.property.index')->with('success', 'Le bien a bien été supprimé');
