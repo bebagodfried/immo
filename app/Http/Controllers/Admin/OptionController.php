@@ -16,8 +16,8 @@ class OptionController extends Controller
      */
     public function index(): View
     {
-        return view('admin.option.index', [
-            'options' => Option::latest()->paginate(25)
+        return view('admin.options.index', [
+            'options' => Option::paginate(25)
         ]);
     }
 
@@ -57,7 +57,7 @@ class OptionController extends Controller
     public function update(OptionFormRequest $request, Option $option): RedirectResponse
     {
         $option->update($request->validated());
-        return to_route('admin.option.index')->with('success', 'L\'option a bien été modifié');
+        return to_route('admin.options.index')->with('success', 'L\'option a bien été modifié');
     }
 
     /**
