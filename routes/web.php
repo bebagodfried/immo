@@ -27,6 +27,13 @@ Route::get('/property/{slug}-{property}', [\App\Http\Controllers\PropertyControl
 ])->name('property.show');
 
 /**
+ * Contact concernant bien spécifique
+ */
+Route::get('/property/{property}/contact', [\App\Http\Controllers\PropertyController::class, 'contact'])->where([
+    'property' => '[0-9]+'
+])->name('property.contact');
+
+/**
  * Authentification & déconnection
  */
 Route::get('/login',        [AuthController::class, 'login'])
