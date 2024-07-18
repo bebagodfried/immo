@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $properties = Property::latest()->limit(4)->get();
+        $properties = Property::with('options')->latest()->limit(4)->get();
         return view('home', ['properties' => $properties]);
     }
 }

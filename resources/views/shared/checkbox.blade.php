@@ -5,9 +5,10 @@ $value  ??= '';
 $label  ??= ucfirst($name);
 @endphp
 
-<div class="{{ $class }} group-control">
+<div class="{{ $class }} form-check form-switch">
 
     <input type="hidden" name="{{ $name }}" value="0">
+
     <input type="checkbox" role="switch"
            class="form-check-input @error($name) is-invalid @enderror"
            id="{{ $name }}"
