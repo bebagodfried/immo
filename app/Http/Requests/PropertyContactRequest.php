@@ -23,7 +23,7 @@ class PropertyContactRequest extends FormRequest
     {
         return [
             'firstname' => 'required|string|min:2',
-            'lastname'  => 'required|string|min:3',
+            'lastname'  => 'required|string|min:2',
             'phone'     => 'required|string|min:8',
             'email'     => 'required|string|min:5',
             'message'   => 'required|string|min:5',

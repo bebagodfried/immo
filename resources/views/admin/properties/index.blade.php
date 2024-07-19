@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex align-items-center justify-content-between">
         <h1>@yield('title')</h1>
-        <a href="{{ route('admin.property.create') }}" class="btn btn-primary">Ajouter un bien</a>
+        <a href="{{ route('admin.biens.create') }}" class="btn btn-primary">Ajouter un bien</a>
     </div>
 
     <table class="table table-striped">
@@ -28,9 +28,9 @@
                 <td>{{ $property->city }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-end">
-                        <a href="{{ route('admin.property.edit', $property) }}" class="btn btn-primary">Éditer</a>
+                        <a href="{{ route('admin.biens.edit', $property) }}" class="btn btn-primary">Éditer</a>
 
-                        <form action="{{ route('admin.property.destroy', $property) }}" method="post">
+                        <form action="{{ route('admin.biens.destroy', $property) }}" method="post">
                             @csrf
                             @method('delete')
 

@@ -7,7 +7,7 @@
     <h1>@yield('title')</h1>
 
     <form class="vstack g-2"
-          action="{{ route( $property->exists ? 'admin.property.update' : 'admin.property.store', $property) }}"
+          action="{{ route( $property->exists ? 'admin.biens.update' : 'admin.biens.store', $property) }}"
           method="post">
         @csrf
         @method($property->exists ? 'put' : 'post')

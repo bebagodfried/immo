@@ -15,13 +15,13 @@ Route::get('/', [HomeController::class, 'index'])
 /**
  * Listing des biens
  */
-Route::get('/property', [\App\Http\Controllers\PropertyController::class, 'index'])
+Route::get('/biens', [\App\Http\Controllers\PropertyController::class, 'index'])
     ->name('property.index');
 
 /**
  * Affichage d'un bien spécifique
  */
-Route::get('/property/{slug}-{property}', [\App\Http\Controllers\PropertyController::class, 'show'])->where([
+Route::get('/biens/{slug}-{property}', [\App\Http\Controllers\PropertyController::class, 'show'])->where([
     'slug' => '[a-z0-9\-]+',
     'property' => '[0-9]+'
 ])->name('property.show');
@@ -29,7 +29,7 @@ Route::get('/property/{slug}-{property}', [\App\Http\Controllers\PropertyControl
 /**
  * Contact concernant bien spécifique
  */
-Route::get('/property/{property}/contact', [\App\Http\Controllers\PropertyController::class, 'contact'])->where([
+Route::post('/biens/{property}/contact', [\App\Http\Controllers\PropertyController::class, 'contact'])->where([
     'property' => '[0-9]+'
 ])->name('property.contact');
 
@@ -37,11 +37,13 @@ Route::get('/property/{property}/contact', [\App\Http\Controllers\PropertyContro
  * Authentification & déconnection
  */
 Route::get('/login',        [AuthController::class, 'login'])
+    ->middleware('guest')
     ->name('login');
 
 Route::post('/login',       [AuthController::class, 'doLogin']);
 
 Route::delete('/logout',    [AuthController::class, 'logout'])
+    ->middleware('auth')
     ->name('logout');
 
 /**
@@ -49,7 +51,7 @@ Route::delete('/logout',    [AuthController::class, 'logout'])
  */
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(
     function () {
-        Route::resource('property', PropertyController::class)->except('show');
+        Route::resource('biens', PropertyController::class)->except('show');
         Route::resource('option', OptionController::class)->except('show');
     }
 );

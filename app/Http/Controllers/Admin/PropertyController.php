@@ -51,14 +51,16 @@ class PropertyController extends Controller
     {
         $property = Property::create($request->validated());
         $property->options()->sync($request->validated('options'));
-        return to_route('admin.property.index')->with('success', 'Le bien a bien été enregistré');
+        return to_route('admin.biens.index')->with('success', 'Le bien a bien été enregistré');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Property $property): View
+    public function edit(Property $bien): View
     {
+        $property = $bien;
+
         return view('admin.properties.form', [
             'property' => $property,
             'options' => Option::pluck('name', 'id')
@@ -72,7 +74,7 @@ class PropertyController extends Controller
     {
         $property->options()->sync($request->validated('options'));
         $property->update($request->validated());
-        return to_route('admin.property.index')->with('success', 'Le bien a bien été modifié');
+        return to_route('admin.biens.index')->with('success', 'Le bien a bien été modifié');
     }
 
     /**
@@ -81,6 +83,6 @@ class PropertyController extends Controller
     public function destroy(Property $property): RedirectResponse
     {
         $property->delete();
-        return to_route('admin.property.index')->with('success', 'Le bien a bien été supprimé');
+        return to_route('admin.biens.index')->with('success', 'Le bien a bien été supprimé');
     }
 }

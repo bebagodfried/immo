@@ -3,18 +3,19 @@
 @section('title', "Se connecter")
 
 @section('content')
+    <div class="container">
+        <h1>@yield('title')</h1>
 
-    <h1>@yield('title')</h1>
+        @include('shared.flash')
 
-    @include('shared.flash')
+        <form class="vstack gap-3" action="{{ route('login') }}" method="post">
+            @csrf
+            @include('shared.input', ['type' => 'email', 'class' => 'col', 'name' => 'email'])
+            @include('shared.input', ['type' => 'password', 'class' => 'col', 'name' => 'password', 'label' => 'Mot de passe'])
 
-    <form class="vstack gap-3" action="{{ route('login') }}" method="post">
-        @csrf
-        @include('shared.input', ['type' => 'email', 'class' => 'col', 'name' => 'email'])
-        @include('shared.input', ['type' => 'password', 'class' => 'col', 'name' => 'password', 'label' => 'Mot de passe'])
-
-        <div class="">
-            <button class="btn btn-primary">Se connecter</button>
-        </div>
-    </form>
+            <div class="">
+                <button class="btn btn-primary">Se connecter</button>
+            </div>
+        </form>
+    </div>
 @endsection

@@ -16,6 +16,8 @@
         <div class="mt-4">
             <h4>Intéresser par ce bien?</h4>
 
+            @include('shared.flash')
+
             <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
                 @csrf
 
@@ -43,7 +45,7 @@
             <p>{!! nl2br($property->description) !!}</p>
             <div class="row">
                 <div class="col-8">
-                    <h2>Characteristique</h2>
+                    <h2>Caractéristique</h2>
                     <table class="table table-striped">
                         <tr>
                             <td>Surface habitable</td>
