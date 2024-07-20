@@ -40,7 +40,12 @@ Route::get('/login',        [AuthController::class, 'login'])
     ->middleware('guest')
     ->name('login');
 
+Route::get('/register',     [AuthController::class, 'register'])
+    ->middleware('guest')
+    ->name('register');
+
 Route::post('/login',       [AuthController::class, 'doLogin']);
+Route::post('/register',    [AuthController::class, 'doRegister']);
 
 Route::delete('/logout',    [AuthController::class, 'logout'])
     ->middleware('auth')

@@ -16,8 +16,8 @@ class PropertyController extends Controller
      */
     public function index(SearchPropertiesRequest $request)
     {
-        $query      = Property::query()->with('options')->latest();
-        $others     = Property::query()->with('options')->latest();
+        $query      = Property::query()->with(['options'])->latest();
+        $others     = Property::query()->with(['options'])->latest();
         $filter     = [];
 
         if ( $surface = $request->validated('surface')) {
@@ -63,6 +63,7 @@ class PropertyController extends Controller
     public function show(string $slug, Property $property)
     {
         $expectedSlug = $property->getSlug();
+
         if ($expectedSlug !== $slug) {
             return to_route('property.show', ['slug' => $expectedSlug, 'property' => $property]);
         }

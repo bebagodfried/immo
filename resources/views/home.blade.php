@@ -3,9 +3,8 @@
 @section('title', "Tous nos biens")
 
 @section('content')
-
+    <!-- latest 4 properties as carousel -->
     <div class="intro intro-carousel swiper position-relative">
-
         <div class="swiper-wrapper">
         @foreach($properties as $property)
             @include('properties.slide')
@@ -14,6 +13,7 @@
         <div class="swiper-pagination"></div>
     </div>
 
+    <!-- landing hero section -->
     <div class="bg-light p-5 mb-5 text-center">
         <div class="container">
             <h1>Agence lorem ipsum</h1>
@@ -21,18 +21,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="d-flex align-items-center justify-content-between mt-4">
-            <h2 class="">Nos derniers biens</h2>
-
-            <a href="{{ route('property.index') }}" class="link-primary">Tous nos biens&nbsp;<i class="bi bi-chevron-right"></i></a>
-        </div>
-        <div class="row">
-            @foreach($properties as $property)
-            <div class="col">
-                @include('properties.card')
-            </div>
-            @endforeach
-        </div>
-    </div>
+    <!-- latest 4 properties-->
+    @include('properties.latest')
 @endsection

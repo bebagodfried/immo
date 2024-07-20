@@ -40,7 +40,8 @@
                     @include('shared.checkbox', ['name' => 'sold', 'label' => 'Vendue', 'value' => $property->sold ])
                 </div>
                 <div class="col-4">
-                    {{ ($property->image->exists ? "Modifier" : "Ajouter") . " des images" }}
+                    {{ ($property->images ? "Modifier" : "Ajouter") . " des images" }}
+                    {{ (true ? "Modifier" : "Ajouter") . " des images" }}
                     <ul class="list-group">
                         <li class="list-group-item">
 
