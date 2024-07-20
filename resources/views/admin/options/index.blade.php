@@ -24,7 +24,8 @@
                     <div class="d-flex gap-2 justify-content-end">
                         <a href="{{ route('admin.option.edit', $option) }}" class="btn btn-primary">Éditer</a>
 
-                        <form action="{{ route('admin.option.destroy', $option) }}" method="post">
+                        <form action="{{ route('admin.option.destroy', $option) }}" method="post"
+                              onsubmit="event.preventDefault(); confirm('Voulez-vous vraiment supprimer «{{ $option->name }}»?')">
                             @csrf
                             @method('delete')
 

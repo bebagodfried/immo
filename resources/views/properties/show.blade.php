@@ -4,41 +4,54 @@
 
 @section('content')
     <div class="container mt-4">
-        <h1>{{ $property->title }}</h1>
-        <h2>{{ $property->rooms }} pieces - {{ $property->surface }} m²</h2>
+        <div class="row justify-content-between">
+            <ul class="col-7 bg-light rounded shadow p-0 m-0 overflow-hidden">
+                <li class="h-100 w-100"
+                    style="
+                        background-image: url({{ @asset('assets/img/' . ($property->image ?? 'placeholder.webp')) }});
+                        background-size:cover
+                    ">
+                </li>
+            </ul>
 
-        <div class="text-primary fw-bold" style="font-size: 4rem;">
-            {{ number_format($property->price, thousands_separator: ' ') }}
-        </div>
+            <div class="col-4">
+                <h1>{{ $property->title }}</h1>
+                <h2 class="text-black-50">{{ $property->rooms }} pieces - {{ $property->surface }} m²</h2>
 
-        <hr>
-
-        <div class="mt-4">
-            <h4>Intéresser par ce bien?</h4>
-
-            @include('shared.flash')
-
-            <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
-                @csrf
-
-                <div class="row">
-                    @include('shared.input', ['class'=> 'col', 'label' => 'Prénom', 'name' => 'firstname'])
-                    @include('shared.input', ['class'=> 'col', 'label' => 'Nom', 'name' => 'lastname'])
+                <div class="text-primary fw-bold" style="font-size: 4rem;">
+                    {{ number_format($property->price, thousands_separator: ' ') }} XOF
                 </div>
 
-                <div class="row">
-                    @include('shared.input', ['class'=> 'col', 'label' => 'Téléphone', 'name' => 'phone'])
-                    @include('shared.input', ['type' => 'email', 'class'=> 'col', 'label' => 'Email', 'name' => 'email'])
-                </div>
-
-                @include('shared.input', ['type' => 'textarea', 'class'=> 'col', 'label' => 'Votre message', 'name' => 'message'])
+                <hr>
 
                 <div class="mt-4">
-                    <button class="btn btn-primary">
-                        Nous contacter
-                    </button>
+                    <h4>Intéresser par ce bien?</h4>
+
+                    @include('shared.flash')
+
+                    <form action="{{ route('property.contact', $property) }}" method="post" class="vstack gap-3">
+                        @csrf
+
+                        <div class="row">
+                            @include('shared.input', ['class'=> 'col', 'label' => 'Prénom', 'name' => 'firstname'])
+                            @include('shared.input', ['class'=> 'col', 'label' => 'Nom', 'name' => 'lastname'])
+                        </div>
+
+                        <div class="row">
+                            @include('shared.input', ['class'=> 'col', 'label' => 'Téléphone', 'name' => 'phone'])
+                            @include('shared.input', ['type' => 'email', 'class'=> 'col', 'label' => 'Email', 'name' => 'email'])
+                        </div>
+
+                        @include('shared.input', ['type' => 'textarea', 'class'=> 'col', 'label' => 'Votre message', 'name' => 'message'])
+
+                        <div class="mt-4">
+                            <button class="btn btn-primary">
+                                Nous contacter
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
 
         <div class="mt-4">

@@ -16,24 +16,44 @@ class PropertyController extends Controller
      */
     public function index(SearchPropertiesRequest $request)
     {
-        $query = Property::query()->with('options')->latest();
+        $query      = Property::query()->with('options')->latest();
+        $others     = Property::query()->with('options')->latest();
+        $filter     = [];
 
         if ( $surface = $request->validated('surface')) {
-            $query  = $query->where('surface', '>=' , $surface);
+            $query      = $query->where('surface', '>=' , $surface);
+            $others     = $others->where('surface', 'like' , "%$surface%");
+            $filter['surface'] = $surface;
         }
         if ( $rooms = $request->validated('rooms')) {
-            $query  = $query->where('rooms', '>=' , $rooms);
+            $query      = $query->where('rooms', '>=' , $rooms);
+            $others     = $others->where('rooms', 'like' , "%$rooms%");
+            $filter['rooms'] = $rooms;
         }
         if ( $price = $request->validated('price')) {
-            $query  = $query->where('price', '<=' , $price);
+            $query      = $query->where('price', '<=' , $price);
+            $others     = $others->where('price', 'like' , "%$price%");
+            $filter['price'] = $price;
         }
-        if ( $title = $request->validated('title')) {
-            $query  = $query->where('title', 'like' , "%$title%");
+        if ( $keyword = $request->validated('title')) {
+            $query      = $query->where('title', 'like' , "%$keyword")
+                                ->orWhere('description', 'like' , "%$keyword")
+                                ->orWhere('city', 'like' , "%$keyword");
+            $others     = $query;
+            $filter['title'] = $keyword;
         }
 
+//        dd($others);
+        if( $others->count() === 0 ):
+            $others = Property::latest();
+        endif;
+
+//        dd($others->count());
         return view('properties.index', [
-            'properties' => $query->paginate(16),
-            'input' => $request->validated(),
+            'properties'=> $query->paginate(16),
+            'input'     => $request->validated(),
+            'filter'    => $filter,
+            'others'    => $others->limit(4)->get()
         ]);
     }
 

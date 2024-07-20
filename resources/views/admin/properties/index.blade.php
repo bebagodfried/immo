@@ -30,7 +30,8 @@
                     <div class="d-flex gap-2 justify-content-end">
                         <a href="{{ route('admin.biens.edit', $property) }}" class="btn btn-primary">Éditer</a>
 
-                        <form action="{{ route('admin.biens.destroy', $property) }}" method="post">
+                        <form action="{{ route('admin.biens.destroy', $property) }}" method="post"
+                              onsubmit="event.preventDefault(); confirm('Voulez-vous vraiment supprimer «{{ $property->title }}»?')">
                             @csrf
                             @method('delete')
 

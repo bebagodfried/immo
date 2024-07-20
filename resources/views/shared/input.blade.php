@@ -6,7 +6,7 @@ $value  ??= '';
 $label  ??= ucfirst($name);
 @endphp
 
-<div class="{{ $class }} group-control">
+<div class="{{ $class }} group-control mb-2">
     <label for="{{ $name }}">{{ $label }}</label>
 
     @if($type == 'textarea')

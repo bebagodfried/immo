@@ -1,24 +1,16 @@
 @extends('base')
 
-@section('title', "Tous nos biens")
+@section('title', ($filter)? "Recherche de biens" : "Tous nos biens")
 
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
 
-        <div class="bg-light p-5 mb-5 text-center">
-            <form action="" method="get" class="container d-flex gap-2">
-                <input type="number" placeholder="Surface min" class="form-control" name="surface" value="{{ $input['surface'] ?? null }}">
-                <input type="number" placeholder="Nombre de chambres min" class="form-control" name="rooms" value="{{ $input['rooms'] ?? null }}">
-                <input type="number" placeholder="Budget max" class="form-control" name="price" value="{{ $input['price'] ?? null }}">
-                <input type="text" placeholder="Mot clef" class="form-control" name="title" value="{{ $input['title'] ?? null }}">
+        <div class="d-flex d-flex align-items-center justify-content-between mb-3">
+            <h1 class="">@yield('title')</h1>
 
-                <button class="btn btn-primary btn-sm flex-grow-0">
-                    Rechercher
-                </button>
-            </form>
+{{--            @dd($others)--}}
+            <x-filter :filter="$filter" :input="$input" :misc="$others" />
         </div>
-
-
 
         <div class="row">
             @forelse($properties as $property)
@@ -26,8 +18,20 @@
                     @include('properties.card')
                 </div>
             @empty
-                <div class="col text-center">
-                    Aucun Bien ne correspond à vôtre recherche
+                <div class="col text-center py-5">
+                    <i class="bi bi-building-fill-slash fs-1"></i>
+                    <p>Aucun Bien ne correspond à vôtre recherche</p>
+
+                </div>
+
+                <hr>
+                <h2>Nos suggestions</h2>
+                <div class="row">
+                @foreach($others as $similar)
+                    <div class="col-3 mb-4">
+                        @include('properties.card', ['property' => $similar ])
+                    </div>
+                @endforeach
                 </div>
             @endforelse
         </div>

@@ -5,8 +5,7 @@ $value  ??= '';
 $label  ??= ucfirst($name);
 @endphp
 
-<div class="{{ $class }} form-check form-switch">
-
+<div class="{{ $class }} form-check form-switch mb-2">
     <input type="hidden" name="{{ $name }}" value="0">
 
     <input type="checkbox" role="switch"
