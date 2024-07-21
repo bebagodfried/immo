@@ -21,13 +21,13 @@
 
     @auth
         <li class="nav-item">
-            <a href="{{ route('admin.biens.index') }}"
-               class="nav-link @if(Route::is('admin.biens.index')) active @endif">Géré les biens</a>
+            <a href="{{ route('admin.properties.index') }}"
+               class="nav-link @if(Route::is('admin.properties.index')) active @endif">Géré les biens</a>
         </li>
 
         <li class="nav-item">
-            <a href="{{ route('admin.option.index') }}"
-               class="nav-link @if(Route::is('admin.option.index')) active @endif">Géré les options</a>
+            <a href="{{ route('admin.options.index') }}"
+               class="nav-link @if(Route::is('admin.options.index')) active @endif">Géré les options</a>
         </li>
 
         <li class="nav-item">

@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex align-items-center justify-content-between">
         <h1>@yield('title')</h1>
-        <a href="{{ route('admin.biens.create') }}" class="btn btn-primary">Ajouter un bien</a>
+        <a href="{{ route('admin.properties.create') }}" class="btn btn-primary">Ajouter un bien</a>
     </div>
 
     <table class="table table-striped">
@@ -27,10 +27,14 @@
                 <td>{{ number_format($property->price, thousands_separator: ' ') }}</td>
                 <td>{{ $property->city }}</td>
                 <td>
-                    <div class="d-flex gap-2 justify-content-end">
-                        <a href="{{ route('admin.biens.edit', $property) }}" class="btn btn-primary">Éditer</a>
+                    <div class="d-flex gap-2 align-items-center justify-content-end">
+                        @if($property->sold)
+                            <div class="badge text-danger">vendu</div>
+                        @endif
 
-                        <form action="{{ route('admin.biens.destroy', $property) }}" method="post"
+                        <a href="{{ route('admin.properties.edit', $property) }}" class="btn btn-primary">Éditer</a>
+
+                        <form action="{{ route('admin.properties.destroy', $property) }}" method="post"
                               onsubmit="event.preventDefault(); confirm('Voulez-vous vraiment supprimer «{{ $property->title }}»?')">
                             @csrf
                             @method('delete')

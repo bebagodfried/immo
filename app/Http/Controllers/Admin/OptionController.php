@@ -38,7 +38,7 @@ class OptionController extends Controller
     public function store(OptionFormRequest $request): RedirectResponse
     {
         $option = Option::create($request->validated());
-        return to_route('admin.option.index')->with('success', 'L\'option a bien été enregistré');
+        return to_route('admin.options.index')->with('success', 'L\'option a bien été enregistré');
     }
 
     /**
@@ -66,6 +66,6 @@ class OptionController extends Controller
     public function destroy(Option $option): RedirectResponse
     {
         $option->delete();
-        return to_route('admin.option.index')->with('success', 'L\'option a bien été supprimé');
+        return to_route('admin.options.index')->with('success', 'L\'option a bien été supprimé');
     }
 }

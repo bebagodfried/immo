@@ -16,9 +16,16 @@ class PropertyController extends Controller
      */
     public function index(SearchPropertiesRequest $request)
     {
-        $query      = Property::query()->with(['options'])->latest();
-        $others     = Property::query()->with(['options'])->latest();
-        $filter     = [];
+        $query = Property::query()
+            ->with(['options'])
+            ->where('sold', false)
+            ->latest();
+
+        $others = Property::query()
+            ->with(['options'])
+            ->latest();
+
+        $filter = [];
 
         if ( $surface = $request->validated('surface')) {
             $query      = $query->where('surface', '>=' , $surface);

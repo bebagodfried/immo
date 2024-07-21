@@ -15,10 +15,10 @@
             </ul>
 
             <div class="col-4">
-                <h1>{{ $property->title }}</h1>
+                <h1>{{ ucfirst($property->title) }}</h1>
                 <h2 class="text-black-50">{{ $property->rooms }} pieces - {{ $property->surface }} m²</h2>
 
-                <div class="text-primary fw-bold" style="font-size: 4rem;">
+                <div class="text-primary fw-bold" style="font-size: 2.5rem;">
                     {{ number_format($property->price, thousands_separator: ' ') }} XOF
                 </div>
 

@@ -57,7 +57,7 @@ Route::delete('/logout',    [AuthController::class, 'logout'])
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(
     function () {
         Route::get('/', [PropertyController::class, 'index'])->name('index');
-        Route::resource('biens', PropertyController::class)->except('show');
-        Route::resource('option', OptionController::class)->except('show');
+        Route::resource('properties', PropertyController::class)->except('show');
+        Route::resource('options', OptionController::class)->except('show');
     }
 );

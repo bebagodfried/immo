@@ -6,7 +6,7 @@
 
     <h1>@yield('title')</h1>
         <form class="vstack g-2"
-              action="{{ route( $property->exists ? 'admin.biens.update' : 'admin.biens.store', $property) }}"
+              action="{{ route( $property->exists ? 'admin.properties.update' : 'admin.properties.store', $property) }}"
               method="post">
             @csrf
             @method($property->exists ? 'put' : 'post')
@@ -17,8 +17,8 @@
                         @include('shared.input', ['class'=> 'col', 'label' => 'Titre', 'name' => 'title', 'value' => $property->title ])
 
                         <div class="col row">
-                            @include('shared.input', ['class' => 'col', 'name' => 'surface', 'value' => $property->surface ])
-                            @include('shared.input', ['class' => 'col', 'name' => 'price', 'value' => $property->price ])
+                            @include('shared.input', ['class' => 'col', 'name' => 'surface', 'label' => 'Surface (m²)', 'value' => $property->surface ])
+                            @include('shared.input', ['class' => 'col', 'name' => 'price', 'label' => 'Prix (xof)', 'value' => $property->price ])
                         </div>
                     </div>
 
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="row">
-                        @include('shared.input', ['class' => 'col', 'name' => 'address', 'label' => 'Address', 'value' => $property->address ])
+                        @include('shared.input', ['class' => 'col', 'name' => 'address', 'label' => 'Adresse', 'value' => $property->address ])
                         @include('shared.input', ['class' => 'col', 'name' => 'city', 'label' => 'Ville', 'value' => $property->city ])
                         @include('shared.input', ['class' => 'col', 'name' => 'postal_code', 'label' => 'Code postal', 'value' => $property->postal_code ])
                     </div>
@@ -39,7 +39,12 @@
                     @include('shared.select', ['name' => 'options', 'label' => 'Options', 'value' => $property->options->pluck('id'), 'multiple' => true, 'options' => $options ])
                     @include('shared.checkbox', ['name' => 'sold', 'label' => 'Vendue', 'value' => $property->sold ])
                 </div>
+
                 <div class="col-4">
+                    @if($property->sold)
+                        <blockquote class="alert alert-danger">Le bien est marqué comme vendu</blockquote>
+                    @endif
+
                     {{ ($property->images ? "Modifier" : "Ajouter") . " des images" }}
                     {{ (true ? "Modifier" : "Ajouter") . " des images" }}
                     <ul class="list-group">

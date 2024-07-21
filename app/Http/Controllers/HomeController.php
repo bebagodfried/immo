@@ -10,14 +10,18 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $properties = Property::with('options')->latest()->limit(4)->get();
+        $properties = Property::with('options')
+            ->latest()
+            ->limit(4)
+            ->where('sold', false)
+            ->get();
 
         if ((User::all())->isEmpty()) {
             return to_route('register');
         }
 
         if ($properties->isEmpty()) {
-            return to_route('admin.biens.create')->with('success', 'Veillez créé un bien pour continuer.');
+            return to_route('admin.properties.create')->with('success', 'Veillez créé un bien pour continuer.');
         }
 
         return view('home', ['properties' => $properties]);

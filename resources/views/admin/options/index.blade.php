@@ -5,7 +5,7 @@
 @section('content')
     <div class="d-flex align-items-center justify-content-between">
         <h1>@yield('title')</h1>
-        <a href="{{ route('admin.option.create') }}" class="btn btn-primary">Ajouter une option</a>
+        <a href="{{ route('admin.options.create') }}" class="btn btn-primary">Ajouter une option</a>
     </div>
 
     <table class="table table-striped">
@@ -22,9 +22,9 @@
                 <td>{{ $option->name }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-end">
-                        <a href="{{ route('admin.option.edit', $option) }}" class="btn btn-primary">Éditer</a>
+                        <a href="{{ route('admin.options.edit', $option) }}" class="btn btn-primary">Éditer</a>
 
-                        <form action="{{ route('admin.option.destroy', $option) }}" method="post"
+                        <form action="{{ route('admin.options.destroy', $option) }}" method="post"
                               onsubmit="event.preventDefault(); confirm('Voulez-vous vraiment supprimer «{{ $option->name }}»?')">
                             @csrf
                             @method('delete')

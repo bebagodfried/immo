@@ -22,15 +22,15 @@ class PropertyFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|min:8',
-            'description' => 'required|min:8',
+            'title' => 'required|min:3',
+            'description' => 'required|min:3',
             'surface' => 'required|integer|min:3',
             'rooms' => 'required|integer|min:1',
             'bedrooms' => 'required|integer|min:0',
             'floor' => 'required|integer|min:0',
             'price' => 'required|integer|min:0',
             'city' => 'required|min:3',
-            'address' => 'required|min:8',
+            'address' => 'required|min:3',
             'postal_code' => 'required|min:1',
             'sold' => 'required|boolean',
             'options' => 'array|exists:options,id'
