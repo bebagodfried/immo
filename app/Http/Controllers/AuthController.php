@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * Show the login form for authentication
+     */
     public function login()
     {
         return view('auth.login');
     }
 
+    /**
+     * Check for user credentials
+     */
     public function doLogin(LoginRequest $request)
     {
         $credentials = $request->validated();
@@ -30,6 +36,9 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
+    /**
+     * Show the user register form
+     */
     public function register()
     {
         return view('auth.register');
@@ -52,6 +61,10 @@ class AuthController extends Controller
 
         return redirect()->route('register');
     }
+
+    /**
+     * Logout an authenticated user
+     */
     public function logout(): RedirectResponse
     {
         Auth::logout();

@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\OptionFormRequest;
 use App\Models\Option;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class OptionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of option.
      */
     public function index(): View
     {
@@ -22,27 +21,28 @@ class OptionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new option.
      */
     public function create(): View
     {
         $option = new Option();
+
         return view('admin.options.form', [
             'option' => $option
         ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created option in storage.
      */
     public function store(OptionFormRequest $request): RedirectResponse
     {
-        $option = Option::create($request->validated());
+        Option::create($request->validated());
         return to_route('admin.options.index')->with('success', 'L\'option a bien été enregistré');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified option.
      */
     public function edit(Option $option): View
     {
@@ -52,7 +52,7 @@ class OptionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified option in storage.
      */
     public function update(OptionFormRequest $request, Option $option): RedirectResponse
     {
@@ -61,7 +61,7 @@ class OptionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified option from storage.
      */
     public function destroy(Option $option): RedirectResponse
     {

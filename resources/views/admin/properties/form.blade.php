@@ -5,14 +5,14 @@
 @section('content')
 
     <h1>@yield('title')</h1>
-        <form class="vstack g-2"
-              action="{{ route( $property->exists ? 'admin.properties.update' : 'admin.properties.store', $property) }}"
-              method="post">
-            @csrf
-            @method($property->exists ? 'put' : 'post')
+    <div class="row justify-content-between">
+        <div class="col-7">
+            <form class="vstack g-2"
+                  action="{{ route( $property->exists ? 'admin.properties.update' : 'admin.properties.store', $property) }}"
+                  method="post" enctype="multipart/form-data">
+                @csrf
+                @method($property->exists ? 'put' : 'post')
 
-            <div class="row justify-content-between">
-                <div class="col-7">
                     <div class="row">
                         @include('shared.input', ['class'=> 'col', 'label' => 'Titre', 'name' => 'title', 'value' => $property->title ])
 
@@ -38,31 +38,52 @@
 
                     @include('shared.select', ['name' => 'options', 'label' => 'Options', 'value' => $property->options->pluck('id'), 'multiple' => true, 'options' => $options ])
                     @include('shared.checkbox', ['name' => 'sold', 'label' => 'Vendue', 'value' => $property->sold ])
+
+                    <input type="file" name="image" id="images" class="d-none">
+
+                <div class="">
+                    <button class="btn btn-primary">
+                        @if($property->exists)
+                            Modifier
+                        @else
+                            Créer
+                        @endif
+                    </button>
                 </div>
+            </form>
+        </div>
 
-                <div class="col-4">
-                    @if($property->sold)
-                        <blockquote class="alert alert-danger">Le bien est marqué comme vendu</blockquote>
-                    @endif
+        <div class="col-4">
+            @if($property->sold)
+                <blockquote class="alert alert-danger">Le bien est marqué comme vendu</blockquote>
+            @endif
 
-                    {{ ($property->images ? "Modifier" : "Ajouter") . " des images" }}
-                    {{ (true ? "Modifier" : "Ajouter") . " des images" }}
-                    <ul class="list-group">
-                        <li class="list-group-item">
+            @php
+                $image = $property->image;
+                $hasImage = $image;
+            @endphp
 
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            {{ ($hasImage ? "Modifier" : "Ajouter") . " des images" }}
 
-            <div class="">
-                <button class="btn btn-primary">
-                    @if($property->exists)
-                        Modifier
-                    @else
-                        Créer
-                    @endif
-                </button>
-            </div>
-        </form>
+            <ul class="list-group">
+                @if($hasImage)
+                <li class="list-group-item">
+                    <form action="{{ route('admin.image', $image) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger position-absolute m-2">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <img src="{{ asset($image->path) }}" alt="{{ $property->title }}" class="img-fluid rounded-3">
+                    </form>
+                </li>
+                @endif
+
+                <li class="list-group-item d-flex align-items-center justify-content-center">
+                    <label for="images" class="align-middle">
+                        <i class="bi bi-cloud-upload fs-3"></i> <span class="fs-3 my-auto">Upload</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
 @endsection

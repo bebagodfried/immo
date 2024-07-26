@@ -6,26 +6,37 @@ use App\Http\Requests\PropertyContactRequest;
 use App\Http\Requests\SearchPropertiesRequest;
 use App\Mail\PropertyContactMail;
 use App\Models\Property;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class PropertyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of properties.
      */
     public function index(SearchPropertiesRequest $request)
     {
+        /**
+         * Get properties order by date
+         * @var mixed $query
+         */
         $query = Property::query()
             ->with(['options'])
             ->where('sold', false)
             ->latest();
-
+        /**
+         * Will store proposal properties order by date
+         * @var mixed $others
+         */
         $others = Property::query()
             ->with(['options'])
             ->latest();
 
-        $filter = [];
+        /**
+         * Search for a property(bien)
+         */
+        $filter = []; // Stores the keywords of a search
 
         if ( $surface = $request->validated('surface')) {
             $query      = $query->where('surface', '>=' , $surface);
@@ -50,12 +61,14 @@ class PropertyController extends Controller
             $filter['title'] = $keyword;
         }
 
-//        dd($others);
+        /**
+         * If the property cannot be found and there is no similar property,
+         * then properties are returned as a proposal
+         */
         if( $others->count() === 0 ):
             $others = Property::latest();
         endif;
 
-//        dd($others->count());
         return view('properties.index', [
             'properties'=> $query->paginate(16),
             'input'     => $request->validated(),
@@ -65,7 +78,7 @@ class PropertyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified property.
      */
     public function show(string $slug, Property $property)
     {
@@ -80,7 +93,13 @@ class PropertyController extends Controller
         ]);
     }
 
-    public function contact(Property $property,PropertyContactRequest $request)
+    /**
+     * Applying for a specific property(bien)
+     * @param Property $property
+     * @param PropertyContactRequest $request
+     * @return RedirectResponse
+     */
+    public function contact(Property $property,PropertyContactRequest $request): RedirectResponse
     {
         Mail::send(new PropertyContactMail($property, $request->validated()));
         return back()->with('success', 'Demande envoyer avec success');

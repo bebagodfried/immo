@@ -12,10 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('property_images', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Property::class)->constrained()->cascadeOnDelete();
-            $table->string('image');
+            $table->foreignIdFor(Property::class);
+            $table->string('path');
             $table->timestamps();
         });
     }

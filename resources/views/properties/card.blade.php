@@ -1,7 +1,7 @@
 <div class="card shadow-sm overflow-hidden">
     <a href="{{ route('property.show', ['slug' => $property->getSlug(), 'property' => $property]) }}">
         <img
-            src="{{ @asset('assets/img/' . ($property->image ?? 'placeholder.webp')) }}" alt="{{ $property->image }}"
+            src="{{ asset(($property->image->path ?? 'assets/img/placeholder.webp')) }}" alt="{{ $property->title }}"
             class="card-img rounded-0">
     </a>
 

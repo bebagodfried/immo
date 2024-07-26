@@ -20,7 +20,7 @@
         </thead>
 
         <tbody>
-        @foreach($properties as $property)
+        @forelse($properties as $property)
             <tr>
                 <td>{{ $property->title }}</td>
                 <td>{{ $property->surface }}m²</td>
@@ -34,8 +34,7 @@
 
                         <a href="{{ route('admin.properties.edit', $property) }}" class="btn btn-primary">Éditer</a>
 
-                        <form action="{{ route('admin.properties.destroy', $property) }}" method="post"
-                              onsubmit="event.preventDefault(); confirm('Voulez-vous vraiment supprimer «{{ $property->title }}»?')">
+                        <form action="{{ route('admin.properties.destroy', $property) }}" method="post">
                             @csrf
                             @method('delete')
 
@@ -44,7 +43,13 @@
                     </div>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td colspan="5" class="text-center opacity-50">
+                    <i class="bi bi-building-fill-slash"></i> Aucun bien ici
+                </td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 

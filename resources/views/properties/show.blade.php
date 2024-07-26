@@ -8,7 +8,7 @@
             <ul class="col-7 bg-light rounded shadow p-0 m-0 overflow-hidden">
                 <li class="h-100 w-100"
                     style="
-                        background-image: url({{ @asset('assets/img/' . ($property->image ?? 'placeholder.webp')) }});
+                        background-image: url({{ asset(($property->image->path ?? 'assets/img/placeholder.webp')) }});
                         background-size:cover
                     ">
                 </li>
