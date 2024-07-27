@@ -22,10 +22,10 @@
         <tbody>
         @forelse($properties as $property)
             <tr>
-                <td>{{ $property->title }}</td>
-                <td>{{ $property->surface }}m²</td>
-                <td>{{ number_format($property->price, thousands_separator: ' ') }}</td>
-                <td>{{ $property->city }}</td>
+                <td class="align-middle">{{ $property->title }}</td>
+                <td class="align-middle">{{ $property->surface }}m²</td>
+                <td class="align-middle">{{ number_format($property->price, thousands_separator: ' ') }}</td>
+                <td class="align-middle">{{ $property->city }}</td>
                 <td>
                     <div class="d-flex gap-2 align-items-center justify-content-end">
                         @if($property->sold)

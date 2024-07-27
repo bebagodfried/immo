@@ -39,7 +39,7 @@
                     @include('shared.select', ['name' => 'options', 'label' => 'Options', 'value' => $property->options->pluck('id'), 'multiple' => true, 'options' => $options ])
                     @include('shared.checkbox', ['name' => 'sold', 'label' => 'Vendue', 'value' => $property->sold ])
 
-                    <input type="file" name="image" id="images" class="d-none">
+                    <input type="file" name="image" id="images" class="d-none"  accept="image/*" onchange="previewImage(event)">
 
                 <div class="">
                     <button class="btn btn-primary">
@@ -73,14 +73,18 @@
                         <button type="submit" class="btn btn-danger position-absolute m-2">
                             <i class="bi bi-trash"></i>
                         </button>
-                        <img src="{{ asset($image->path) }}" alt="{{ $property->title }}" class="img-fluid rounded-3">
+                        <img id="preview" src="{{ asset($image->path) }}" alt="{{ $property->title }}" class="img-fluid rounded-3">
                     </form>
+                </li>
+                @else
+                <li class="list-group-item">
+                    <img id="preview" src="{{ asset('/assets/img/placeholder.webp') }}" class="img-fluid rounded-3" alt="preview">
                 </li>
                 @endif
 
                 <li class="list-group-item d-flex align-items-center justify-content-center">
-                    <label for="images" class="align-middle">
-                        <i class="bi bi-cloud-upload fs-3"></i> <span class="fs-3 my-auto">Upload</span>
+                    <label for="images" class="btn btn-primary align-middle w-100">
+                        <i class="bi bi-cloud-upload fs-3"></i> <span class="fs-3 my-auto">{{ $hasImage ? "Update" : "Upload" }}</span>
                     </label>
                 </li>
             </ul>

@@ -135,6 +135,7 @@ class PropertyController extends Controller
             // Update Image
             $image = $property->image;
             $image->path = $path;
+            $image->save();
         else:
             // DB Side Processing
             $image->property()->associate($property);

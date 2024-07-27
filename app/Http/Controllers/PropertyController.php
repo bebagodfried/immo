@@ -9,6 +9,7 @@ use App\Models\Property;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 
 class PropertyController extends Controller
 {
@@ -25,6 +26,7 @@ class PropertyController extends Controller
             ->with(['options'])
             ->where('sold', false)
             ->latest();
+
         /**
          * Will store proposal properties order by date
          * @var mixed $others
@@ -80,7 +82,7 @@ class PropertyController extends Controller
     /**
      * Display the specified property.
      */
-    public function show(string $slug, Property $property)
+    public function show(string $slug, Property $property): RedirectResponse | View
     {
         $expectedSlug = $property->getSlug();
 

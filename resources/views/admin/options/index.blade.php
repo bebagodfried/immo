@@ -19,7 +19,7 @@
         <tbody>
         @forelse($options as $option)
             <tr>
-                <td>{{ $option->name }}</td>
+                <td class="align-middle">{{ $option->name }}</td>
                 <td>
                     <div class="d-flex gap-2 justify-content-end">
                         <a href="{{ route('admin.options.edit', $option) }}" class="btn btn-primary">Éditer</a>
